@@ -15,14 +15,9 @@ jobs:
       - run: bun run build
       - name: Archive artifact
         shell: sh
-        run: |
-          tar \
+        run: tar \
           "$RUNNER_TEMP/artifact.tar" \
           "$INPUT_PATH" \
-          --dereference --hard-dereference \
-          --exclude=.git \
-          --exclude=.github \
-          .
         env:
           INPUT_PATH: "dist/"
       - name: Upload artifacts
