@@ -8,11 +8,11 @@ jobs:
     name: Compile Svelte to HTML + JS
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: oven-sh/setup-bun@v1
         with:
-          node-version: latest
-      - run: npm ci
-      - run: npm run build
+            bun-version: latest
+      - run: bun i
+      - run: bun run build
   upload:
     runs-on: ubuntu-latest
     name: Upload artifacts to GitHub Pages
