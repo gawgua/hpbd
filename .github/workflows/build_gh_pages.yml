@@ -13,13 +13,7 @@ jobs:
             bun-version: latest
       - run: bun i
       - run: bun run build
-      - name: Archive artifact
-        shell: sh
-        run: tar -cf "$RUNNER_TEMP/artifact.tar" "$INPUT_PATH"
-        env:
-          INPUT_PATH: "dist/"
       - name: Upload artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-            name: 'github-pages'
-            path: ${{ runner.temp }}/artifact.tar
+            path: dist
