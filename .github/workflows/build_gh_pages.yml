@@ -5,15 +5,28 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Publish to GitHubPages
+    name: Compile Svelte to HTML + JS
     steps:
       - uses: actions/checkout@v3
       - uses: oven-sh/setup-bun@v1
         with:
-            bun-version: latest
+          bun-version: latest
       - run: bun i
       - run: bun run build
-      - name: Upload artifacts
-        uses: actions/upload-pages-artifact@v3
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Upload artifacts
+    steps:
+      - uses: actions/upload-pages-artifact@v3
         with:
-            path: dist
+          path: dist
+  deploy:
+    needs: upload
+    runs-on: ubuntu-latest
+    name: Deploy to Pages
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/deploy-pages@v3
