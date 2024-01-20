@@ -17,7 +17,7 @@ jobs:
         shell: sh
         run: tar \
           "$RUNNER_TEMP/artifact.tar" \
-          "$INPUT_PATH" \
+          "$INPUT_PATH"
         env:
           INPUT_PATH: "dist/"
       - name: Upload artifacts
