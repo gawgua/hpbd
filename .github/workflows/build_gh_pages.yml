@@ -13,20 +13,18 @@ jobs:
           bun-version: latest
       - run: bun i
       - run: bun run build
-  upload:
-    needs: build
-    runs-on: ubuntu-latest
-    name: Upload artifacts
-    steps:
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist/
   deploy:
-    needs: upload
+    needs: build
     runs-on: ubuntu-latest
     name: Deploy to Pages
     permissions:
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/deploy-pages@v3
+      - uses: actions/deploy-pages@v4
