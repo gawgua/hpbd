@@ -1,0 +1,35 @@
+name: Build GitHub Pages
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Compile Svelte to HTML + JS
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      - run: npm ci
+      - run: npm run build
+  upload:
+    runs-on: ubuntu-latest
+    name: Upload artifacts to GitHub Pages
+    steps:
+      - name: Archive artifact
+        shell: sh
+        run: |
+          tar \
+          --dereference --hard-dereference \
+          --directory "$INPUT_PATH" \
+          -cvf "$RUNNER_TEMP/artifact.tar" \
+          --exclude=.git \
+          --exclude=.github \
+          .
+        env:
+          INPUT_PATH: "dist/"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+            name: 'github-pages'
+            path: ${{ runner.temp }}/artifact.tar
