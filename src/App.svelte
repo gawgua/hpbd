@@ -1,27 +1,37 @@
 <script lang="ts">
 	import BirthdayCake from "./lib/BirthdayCake.svelte";
 	import StartMenu from "./lib/StartMenu.svelte";
+	import ImagesGrid from "./lib/ImagesGrid.svelte";
 	import "animate.css";
 
 	let startBut: HTMLDivElement;
 	let cake: HTMLDivElement;
+	let imggrid: HTMLDivElement;
 
-	function animatestart_startBut() {
+	function animatestart_StartMenu() {
 		startBut.classList.add("animate__animated", "animate__fadeOutUp");
 	}
-	function animateend_startBut() {
+	function animateend_StartMenu() {
 		startBut.remove();
-		cake.classList.remove("hidden");
 		cake.classList.add("animate__animated", "animate__fadeInUp");
+		cake.classList.remove("hidden");
+	}
+
+	function animatenext_BirthdayCake() {
+		cake.classList.toggle("hidden");
+		imggrid.classList.toggle("hidden");
 	}
 </script>
 
 <main>
-	<div bind:this={startBut} on:animationend={animateend_startBut}>
-		<StartMenu on:click={animatestart_startBut} />
+	<div bind:this={startBut} on:animationend={animateend_StartMenu}>
+		<StartMenu on:click={animatestart_StartMenu} />
 	</div>
 	<div class="hidden" bind:this={cake}>
-		<BirthdayCake />
+		<BirthdayCake on:next={animatenext_BirthdayCake} />
+	</div>
+	<div class="hidden" bind:this={imggrid}>
+		<ImagesGrid />
 	</div>
 </main>
 
