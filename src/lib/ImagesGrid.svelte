@@ -1,5 +1,8 @@
 <script lang="ts">
-	import Image from "./Image.svelte";
+	import { onMount } from "svelte";
+	import { createEventDispatcher } from "svelte";
+
+	const dispatch = createEventDispatcher();
 
 	let images: string[] = [
 		"./images/grid_imgs/1.png",
@@ -10,38 +13,88 @@
 		"./images/grid_imgs/6.png",
 		"./images/grid_imgs/7.png",
 		"./images/grid_imgs/8.png",
+		"./images/grid_imgs/9.png",
+		"./images/grid_imgs/10.png",
+		"./images/grid_imgs/11.png",
+		"./images/grid_imgs/12.png",
+		"./images/grid_imgs/13.png",
+		"./images/grid_imgs/14.png",
+		"./images/grid_imgs/15.png",
 	];
+
+	let imgArr: HTMLImageElement[] = [];
+	let observer = new IntersectionObserver(
+		(entries, observer) => {
+			entries.forEach((e) => {
+				let img: HTMLElement = e.target;
+				if (e.isIntersecting) img.style.opacity = "1";
+				else img.style.opacity = "0";
+			});
+		},
+		{ threshold: 0.1 }
+	);
+
+	onMount(() => {
+		imgArr.forEach((img) => observer.observe(img));
+	});
 </script>
 
-<div class="container">
-	<div class="grid">
-		{#each images as img}
-			<div class="grid-item">
-				<Image url={img}></Image>
-			</div>
+<h1>Gương mặt của cô nàng xinh đẹp có ngày sinh nhật hôm nay UwU</h1>
+<div class="grid">
+	<div class="grid-item">
+		{#each images.slice(0, Math.ceil(images.length / 2)) as url, index}
+			<img class="image" loading="lazy" src={url} alt="img" bind:this={imgArr[index]} />
+		{/each}
+	</div>
+	<div class="grid-item">
+		{#each images.slice(Math.ceil(images.length / 2)) as url, index}
+			<img class="image" loading="lazy" src={url} alt="img" bind:this={imgArr[index + Math.ceil(images.length / 2)]} />
 		{/each}
 	</div>
 </div>
+<div class="but">
+	<button on:click={() => dispatch("next")}>Có 1 lời nhắn cho bạn</button>
+</div>
 
 <style>
-	.container {
+	.but {
+		margin: 20px 0;
 		display: flex;
 		justify-content: center;
-		align-items: center;
+	}
+
+	button {
+		text-align: center;
+		font-size: medium;
+		padding: 15px 30px;
+	}
+
+	h1 {
+		text-align: center;
+		font-size: xx-large;
+		background-color: #fcd4cda8;
+		padding: 50px 0px;
+		margin: 0;
 	}
 
 	.grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(200px, max-content));
-		grid-gap: 0.8rem;
-		max-width: 900px;
-		min-width: 400px;
-		place-self: center;
+		display: flex;
+		flex-wrap: wrap;
+		padding: 0 5vw;
 	}
 
 	.grid-item {
+		flex: 25%;
+		padding: 0 4px;
+	}
+
+	.grid-item .image {
+		margin-top: 10px;
+		vertical-align: middle;
 		width: 100%;
-		height: 100%;
+		height: auto;
 		object-fit: cover;
+		opacity: 0;
+		transition: ease-in-out 300ms;
 	}
 </style>
