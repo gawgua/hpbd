@@ -45,16 +45,11 @@
 </div>
 
 <style>
-	:root {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
 	div {
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		overflow: hidden;
 	}
 
 	button {
