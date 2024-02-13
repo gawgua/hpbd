@@ -30,11 +30,13 @@
 		(entries, observer) => {
 			entries.forEach((e) => {
 				let img: HTMLElement = e.target;
-				if (e.isIntersecting) img.style.opacity = "1";
-				else img.style.opacity = "0";
+				if (e.intersectionRatio > 0.55) 
+					img.style.opacity = "1";
+				else
+					img.style.opacity = `${e.intersectionRatio}`;
 			});
 		},
-		{ threshold: 0.1 }
+		{ threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] }
 	);
 
 	onMount(() => {
