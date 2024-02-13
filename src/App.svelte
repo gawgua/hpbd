@@ -13,6 +13,7 @@
 
 	function animatestart_StartMenu() {
 		startBut.classList.add("animate__animated", "animate__fadeOutUp");
+		music.volume = 0.25;
 		music.play();
 	}
 	function animateend_StartMenu() {
