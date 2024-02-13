@@ -5,21 +5,24 @@
 	const dispatch = createEventDispatcher();
 
 	let images: string[] = [
-		"./images/grid_imgs/1.png",
 		"./images/grid_imgs/2.png",
-		"./images/grid_imgs/3.png",
 		"./images/grid_imgs/4.png",
-		"./images/grid_imgs/5.png",
-		"./images/grid_imgs/6.png",
+		"./images/grid_imgs/1.png",
 		"./images/grid_imgs/7.png",
-		"./images/grid_imgs/8.png",
-		"./images/grid_imgs/9.png",
-		"./images/grid_imgs/10.png",
 		"./images/grid_imgs/11.png",
 		"./images/grid_imgs/12.png",
 		"./images/grid_imgs/13.png",
-		"./images/grid_imgs/14.png",
+		"./images/grid_imgs/5.png",
+		"./images/grid_imgs/6.png",
+		"./images/grid_imgs/3.png",
+		"./images/grid_imgs/8.png",
 		"./images/grid_imgs/15.png",
+		"./images/grid_imgs/14.png",
+		"./images/grid_imgs/16.png",
+		"./images/grid_imgs/17.png",
+		"./images/grid_imgs/18.png",
+		"./images/grid_imgs/10.png",
+		"./images/grid_imgs/9.png",
 	];
 
 	let imgArr: HTMLImageElement[] = [];
@@ -39,7 +42,7 @@
 	});
 </script>
 
-<h1>Gương mặt của cô nàng xinh đẹp có ngày sinh nhật hôm nay UwU</h1>
+<h1 class="rainbow_text_animated">Gương mặt của cô nàng xinh đẹp có ngày sinh nhật hôm nay UwU</h1>
 <div class="grid">
 	<div class="grid-item">
 		{#each images.slice(0, Math.ceil(images.length / 2)) as url, index}
@@ -72,9 +75,28 @@
 	h1 {
 		text-align: center;
 		font-size: xx-large;
-		background-color: #fcd4cda8;
+		-webkit-text-stroke-color: #ffccc2;
+		-webkit-text-stroke-width: 1px;
 		padding: 50px 0px;
 		margin: 0;
+	}
+	.rainbow_text_animated {
+		background: linear-gradient(to right, #6666ff, #0099ff, #00ff00, #ff3399, #6666ff);
+		background-clip: text;
+		color: transparent;
+		animation: rainbow_animation 6s ease-in-out infinite;
+		background-size: 400% 100%;
+	}
+
+	@keyframes rainbow_animation {
+		0%,
+		100% {
+			background-position: 0 0;
+		}
+
+		50% {
+			background-position: 100% 0;
+		}
 	}
 
 	.grid {
