@@ -44,6 +44,11 @@
 	});
 </script>
 
+<svelte:head>
+	{#each images as url}
+		<link rel="preload" as="image" href={url} />
+	{/each}
+</svelte:head>
 <h1 class="rainbow_text_animated">Gương mặt của cô nàng xinh đẹp có ngày sinh nhật hôm nay UwU</h1>
 <div class="grid">
 	<div class="grid-item">
