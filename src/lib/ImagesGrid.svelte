@@ -31,8 +31,8 @@
 		(entries, observer) => {
 			entries.forEach((e) => {
 				let img: HTMLElement = e.target;
-				if (e.intersectionRatio > (window.innerWidth >= window.innerHeight ? 0.3 : 0.55)) img.style.opacity = "1";
-				else img.style.opacity = `${e.intersectionRatio}`;
+				if (e.intersectionRatio > 0.5) img.style.opacity = "1";
+				else img.style.opacity = `${e.intersectionRatio / 0.5}`;
 			});
 		},
 		{ threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] }
@@ -131,6 +131,5 @@
 		height: auto;
 		object-fit: cover;
 		opacity: 0;
-		transition: ease-in-out 300ms;
 	}
 </style>
