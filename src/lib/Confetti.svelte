@@ -10,8 +10,8 @@
 			confetti.style.left = Math.random() * window.innerWidth + "px";
 			confetti.textContent = Math.random() > 0.5 ? "🎊" : "🎉";
 			confetti.className = confettiClass;
-
-			if (confettiContainer.childNodes.length > 30) confettiContainer.childNodes[0].remove();
+			
+			while (confettiContainer.childNodes.length > (window.innerWidth >= window.innerHeight ? 30 : 15)) confettiContainer.childNodes[0].remove();
 			confettiContainer.appendChild(confetti);
 		}, 400);
 	});
