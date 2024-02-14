@@ -3,9 +3,9 @@
 
 	let open = false;
 
-	onMount(() => {
+	$: if (open) {
 		window.onscroll = () => window.scrollTo(0, 0);
-	});
+	}
 </script>
 
 <div class="container {open ? 'flap' : ''}">
